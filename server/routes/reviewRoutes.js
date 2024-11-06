@@ -4,6 +4,7 @@ const reviewController = require("../controllers/reviewController");
 
 const router = express.Router();
 
+router.get("/", reviewController.startUpSetting);
 router.get("/reviews/:review_id", reviewController.getReviewById);
 router.get("/reviews", reviewController.getReviews);
 router.get("/reviews/meta/:product_id", reviewController.getReviewMeta);
