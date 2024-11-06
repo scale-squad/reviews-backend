@@ -1,9 +1,24 @@
-// controllers/reviewController.js
 const { v4: uuidv4 } = require("uuid");
 const NodeCache = require("node-cache");
 const { getCollection } = require("../config/db");
 
 const cache = new NodeCache({ stdTTL: 3600 });
+
+const startUpSetting = async (req, res) => {
+  return res.json({
+    _id: '672bab1f30bf8836c5ccaf92',
+    review_id: 'c2c1afaa-9d38-4d05-80d3-4e928b2896ea',
+    product_id: 1,
+    rating: 5,
+    summary: 'Great product',
+    body: 'I really enjoyed this product.',
+    recommend: true,
+    reviewer_name: 'John Doe',
+    email: 'john.doe@example.com',
+    photos: [],
+    characteristic:{},
+  });
+};
 
 const getReviewById = async (req, res) => {
   const reviewId = parseInt(req.params.review_id);
@@ -88,6 +103,10 @@ const getReviewMeta = async (req, res) => {
         },
       ])
       .toArray();
+      if (metadata.length === 0) {
+        return res.status(203).json({ error: "No metadata found for this product" });
+      }
+
     const ratings = {};
     metadata[0].ratings.forEach((rating) => {
       ratings[rating] = (ratings[rating] || 0) + 1;
@@ -162,6 +181,7 @@ const reportReview = async (req, res) => {
 };
 
 module.exports = {
+  startUpSetting,
   getReviewById,
   getReviews,
   getReviewMeta,
