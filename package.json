@@ -1,0 +1,35 @@
+{
+  "name": "reviews-backend",
+  "version": "1.0.0",
+  "description": "reviews-backend",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scale-squad/reviews-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIC",
+  "bugs": {
+    "url": "https://github.com/scale-squad/reviews-backend/issues"
+  },
+  "homepage": "https://github.com/scale-squad/reviews-backend#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.17.1",
+    "mongoose": "^8.8.0",
+    "node-cache": "^5.1.2",
+    "path": "^0.12.7",
+    "uuid": "^11.0.2"
+  },
+  "devDependencies": {
+    "artillery-plugin-faker": "^5.0.2",
+    "artillery-plugin-metrics-by-endpoint": "^1.15.0",
+    "fs": "^0.0.1-security",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.7"
+  }
+}
