@@ -1,0 +1,58 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 60
+      arrivalRate: 300
+      name: "Load test"
+  defaults:
+    headers:
+      Content-Type: "application/json"
+  plugins:
+    faker: {}
+    ensure: {}
+    apdex: {}
+    metrics-by-endpoint: {}
+scenarios:
+  - name: "Get review by ID"
+    flow:
+      - get:
+          url: "/reviews/{{ $randomNumber(1, 100000) }}"
+
+  - name: "Get reviews"
+    flow:
+      - get:
+          url: "/reviews"
+          qs:
+            product_id: "{{ $randomNumber(1, 100000) }}"
+            page: "{{ $randomNumber(1, 10) }}"
+            count: "{{ $randomNumber(1, 20) }}"
+
+  - name: "Get review metadata"
+    flow:
+      - get:
+          url: "/reviews/meta/{{ $randomNumber(1, 100000) }}"
+
+  - name: "Add a review"
+    flow:
+      - post:
+          url: "/reviews"
+          json:
+            product_id: "{{ $randomNumber(1, 100000) }}"
+            rating: "{{ $randomNumber(1, 5) }}"
+            summary: "this is a summary"
+            body: "this is a body"
+            recommend: "Fa"
+            reviewer_name: "this is a name"
+            email: "this is an email"
+            photos: []
+            characteristics: {}
+
+  - name: "Mark review as helpful"
+    flow:
+      - put:
+          url: "/reviews/{{ $randomNumber(1, 100000) }}/helpful"
+
+  - name: "Report review"
+    flow:
+      - put:
+          url: "/reviews/{{ $randomNumber(1, 100000) }}/report"
